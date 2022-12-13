@@ -122,7 +122,7 @@ myPromise.prototype.catch = function (onRejected) {
 myPromise.prototype.finally = function (callback) {
     return this.then(
         value => myPromise.resolve(callback()).then(() => value),
-        reason => myPromise.resolve(callback()).then(() => reason),
+        reason => myPromise.resolve(callback()).then(() => reason)
     )
 }
 
