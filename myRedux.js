@@ -82,10 +82,10 @@ function combineReducers(reducers) {
             let reducer = finalReducers[key];
             let prevState = finalState[key];
             let nextState = reducer(prevState, action);
-            isChanged = prevState === nextState || (Object.keys(prevState).length === Object.keys(nextState).length);
+            isChanged = prevState !== nextState || (Object.keys(prevState).length !== Object.keys(nextState).length);
             finalState[key] = nextState;
         })
-        isChanged = Object.keys(state).length === Object.keys(finalState).length;
+        isChanged = Object.keys(state).length !== Object.keys(finalState).length;
         return isChanged ? finalState : state;
     }
 }
