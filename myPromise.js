@@ -130,20 +130,18 @@ myPromise.prototype.finally = function (callback) {
 myPromise.resolve = function (value) {
     if (value instanceof myPromise) {
         return value;
-    } else {
-        return new myPromise((resolve, reject) => {
-            resolve(value);
-        })
     }
+    return new myPromise((resolve, reject) => {
+        resolve(value);
+    })
 }
 myPromise.reject = function (value) {
     if (value instanceof myPromise) {
         return value;
-    } else {
-        return new myPromise((resolve, reject) => {
-            reject(value);
-        })
     }
+    return new myPromise((resolve, reject) => {
+        reject(value);
+    })
 }
 myPromise.race = function (arr) {
     if (!Array.isArray(arr)) {
