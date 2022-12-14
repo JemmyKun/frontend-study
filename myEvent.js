@@ -29,7 +29,7 @@ class EventBus {
             fn(...args);
             this.off(name, fn);
         }
-        this.emit(name, temp);
+        this.on(name, temp);
         return this;
     }
 }
