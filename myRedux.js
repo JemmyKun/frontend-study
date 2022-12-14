@@ -2,17 +2,17 @@
  * myRedux
  * 实现一个简版的redux
  */
-function createStore(preState, reducer, enhancer) {
+function createStore(prevState, reducer, enhancer) {
     if (typeof reducer !== 'function') {
         throw Error('reducer must be a function!')
     }
     if (typeof reducer === 'function' && typeof enhancer === 'function') {
-        return enhancer(createStore)(preState, reducer);
+        return enhancer(createStore)(prevState, reducer);
     }
-    if (typeof preState !== 'object' || preState === null) {
-        preState = {};
+    if (typeof prevState !== 'object' || prevState === null) {
+        prevState = {};
     }
-    let state = preState || {};
+    let state = prevState || {};
     let listeners = [];
     let isDispatching = false;
     let isSubcribe = false;
@@ -55,7 +55,7 @@ function createStore(preState, reducer, enhancer) {
     }
 
     dispatch({
-        type: "INT_REDUX_" + randomString
+        type: "INIT_REDUX_" + randomString
     })
 
     return {
