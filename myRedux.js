@@ -9,10 +9,15 @@ function createStore(prevState, reducer, enhancer) {
     if (typeof reducer === 'function' && typeof enhancer === 'function') {
         return enhancer(createStore)(prevState, reducer);
     }
-    if (typeof prevState !== 'object' || prevState === null) {
-        prevState = {};
+    if (typeof prevState === 'function' && typeof reducer === 'function') {
+        return reducer(createStore)(prevState);
     }
-    let state = prevState || {};
+
+    let state = {};
+    if (typeof prevState === 'object' || prevState !== null) {
+        state = prevState;
+    }
+
     let listeners = [];
     let isDispatching = false;
     let isSubcribe = false;
@@ -83,7 +88,7 @@ function combineReducers(reducers) {
             let prevState = finalState[key];
             let nextState = reducer(prevState, action);
             isChanged = prevState !== nextState || (Object.keys(prevState).length !== Object.keys(nextState).length);
-            finalState[key] = nextState;
+            finalState[key] = isChanged ? nextState : prevState;
         })
         isChanged = Object.keys(state).length !== Object.keys(finalState).length;
         return isChanged ? finalState : state;
