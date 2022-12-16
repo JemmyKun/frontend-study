@@ -20,8 +20,9 @@ class EventBus {
     off(name, fn) {
         if (!fn) {
             this.events[name] = [];
+        }else{
+            this.events[name] = this.events[name].filter(item => item !== fn);
         }
-        this.events[name] = this.events[name].filter(item => item !== fn);
         return this;
     }
     once(name, fn) {
